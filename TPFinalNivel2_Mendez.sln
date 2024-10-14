@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "presentacion", "presentacion\presentacion.csproj", "{7C346422-68A2-4A52-BF39-B90F2F9BB31A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dominio", "modelo\dominio.csproj", "{1EB2FECD-7292-4FEF-930C-6DA03FAD1443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "negocio", "negocio\negocio.csproj", "{414A04D2-33BF-4E42-9390-E200150109D5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C346422-68A2-4A52-BF39-B90F2F9BB31A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C346422-68A2-4A52-BF39-B90F2F9BB31A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C346422-68A2-4A52-BF39-B90F2F9BB31A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C346422-68A2-4A52-BF39-B90F2F9BB31A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EB2FECD-7292-4FEF-930C-6DA03FAD1443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EB2FECD-7292-4FEF-930C-6DA03FAD1443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EB2FECD-7292-4FEF-930C-6DA03FAD1443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EB2FECD-7292-4FEF-930C-6DA03FAD1443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{414A04D2-33BF-4E42-9390-E200150109D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{414A04D2-33BF-4E42-9390-E200150109D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{414A04D2-33BF-4E42-9390-E200150109D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{414A04D2-33BF-4E42-9390-E200150109D5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56428812-FC25-400C-B9A6-95136F9A7010}
+	EndGlobalSection
+EndGlobal
