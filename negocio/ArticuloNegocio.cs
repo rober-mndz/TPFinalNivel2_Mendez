@@ -46,5 +46,19 @@ namespace negocio
                 throw ex;
             }
         }
+
+        public void AgregarArticulo(Articulo articulo)
+        {
+            try
+            {
+                datos.setQuery("");
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

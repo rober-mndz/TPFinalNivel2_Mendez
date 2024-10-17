@@ -72,5 +72,7 @@ namespace negocio
         {
             cmd.Parameters.AddWithValue(nombre, valor);
         }
+
+
     }
 }
