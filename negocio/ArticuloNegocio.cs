@@ -51,13 +51,51 @@ namespace negocio
         {
             try
             {
+                datos.setQuery("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio) VALUES (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @ImagenUrl, @Precio)");
+                datos.setParameters("@Codigo", articulo.Codigo);
+                datos.setParameters("@Nombre", articulo.Nombre);
+                datos.setParameters("@Descripcion", articulo.Descripcion);
+                datos.setParameters("@IdMarca", articulo.Marca.Id);
+                datos.setParameters("@IdCategoria", articulo.Categoria.Id);
+                datos.setParameters("@ImagenUrl", articulo.Imagen);
+                datos.setParameters("@Precio", articulo.Precio);
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public void EliminarArticulo(Articulo articulo)
+        {
+            try
+            {
+                datos.setQuery("DELETE FROM ARTICULOS WHERE Id = @Id");
+                datos.setParameters("@Id", articulo.Id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public void EditarArticulo(Articulo articulo)
+        {
+            try
+            {
                 datos.setQuery("");
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
     }

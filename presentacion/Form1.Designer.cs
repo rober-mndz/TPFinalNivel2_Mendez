@@ -56,8 +56,11 @@
             this.dgvArticulos.AllowUserToDeleteRows = false;
             this.dgvArticulos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvArticulos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvArticulos.Location = new System.Drawing.Point(12, 103);
+            this.dgvArticulos.MultiSelect = false;
             this.dgvArticulos.Name = "dgvArticulos";
+            this.dgvArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvArticulos.Size = new System.Drawing.Size(724, 282);
             this.dgvArticulos.TabIndex = 0;
             this.dgvArticulos.SelectionChanged += new System.EventHandler(this.dgvArticulos_SelectionChanged);
@@ -70,6 +73,9 @@
             this.txtBusqueda.Size = new System.Drawing.Size(329, 20);
             this.txtBusqueda.TabIndex = 1;
             this.txtBusqueda.Text = "Buscar...";
+            this.txtBusqueda.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtBusqueda_MouseClick);
+            this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
+            this.txtBusqueda.Leave += new System.EventHandler(this.txtBusqueda_Leave);
             // 
             // btnAgregar
             // 
@@ -89,6 +95,7 @@
             this.btnEditar.TabIndex = 3;
             this.btnEditar.Text = "Editar Articulo";
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnEliminar
             // 
@@ -99,6 +106,7 @@
             this.btnEliminar.TabIndex = 4;
             this.btnEliminar.Text = "Eliminar Articulo";
             this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // pbArticulo
             // 
@@ -254,6 +262,7 @@
             this.Controls.Add(this.dgvArticulos);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Control Stock";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();

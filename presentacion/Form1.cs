@@ -32,6 +32,8 @@ namespace presentacion
                 List<Articulo> listaArticulos = negocio.ListarArticulos();
                 dgvArticulos.DataSource = listaArticulos;
                 CargarImagen(listaArticulos[0].Imagen);
+                dgvArticulos.Columns["Id"].Visible = false;
+                dgvArticulos.Columns["Imagen"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -76,6 +78,71 @@ namespace presentacion
             AgregarArticulo ventana = new AgregarArticulo();
             ventana.ShowDialog();
             cargar();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                Articulo seleccionado;
+                if (dgvArticulos.CurrentRow != null) seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                else
+                {
+                    MessageBox.Show("Seleccione el articulo a eliminar", "Eliminar Articulo");
+                    return;
+                }
+
+                DialogResult result = MessageBox.Show("Seguro quiere eliminar el articulo '" + seleccionado.Nombre + "'", "Eliminar Articulo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    negocio.EliminarArticulo(seleccionado);
+                    cargar();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvArticulos.CurrentRow != null)
+            {
+                AgregarArticulo ventana = new AgregarArticulo((Articulo)dgvArticulos.CurrentRow.DataBoundItem);
+                ventana.ShowDialog();
+                cargar();
+            }
+            else MessageBox.Show("No hay ningun articulo seleccionado", "Editar Articulo");
+        }
+
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            string query = txtBusqueda.Text;
+            List<Articulo> listaFiltrada = negocio.ListarArticulos().FindAll(x => x.Nombre.ToUpper().Contains(query.ToUpper()));
+            
+            if (query.Length >= 3 || query == "")
+            dgvArticulos.DataSource = listaFiltrada;
+
+        }
+
+        private void txtBusqueda_MouseClick(object sender, MouseEventArgs e)
+        {
+            txtBusqueda.Text = "";
+            txtBusqueda.ForeColor = SystemColors.ControlText;
+        }
+
+        private void txtBusqueda_Leave(object sender, EventArgs e)
+        {
+            if(txtBusqueda.Text == "")
+            {
+                txtBusqueda.Text = "Buscar...";
+                txtBusqueda.ForeColor = SystemColors.WindowFrame;
+                cargar();
+            }
         }
     }
 }
