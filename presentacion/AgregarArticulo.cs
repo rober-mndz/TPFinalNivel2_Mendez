@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Configuration;
 
 namespace presentacion
 {
@@ -118,7 +118,7 @@ namespace presentacion
 
                     if (archivo != null && !(txtImagen.Text.Contains("http")))
                         //guardar la imagen!!
-                        File.Copy(archivo.FileName, ConfigurationManager.AppSettings["gdImages"] + archivo.SafeFileName);
+                        File.Copy(archivo.FileName, ConfigurationManager.AppSettings["ArtImages"] + archivo.SafeFileName);
 
                     if (this.articulo == null)
                     {
