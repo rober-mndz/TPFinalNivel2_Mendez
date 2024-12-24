@@ -1,6 +1,7 @@
 ﻿using dominio;
 using negocio;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace presentacion
 {
     public partial class AgregarArticulo : Form
     {
         private Articulo articulo;
+        private OpenFileDialog archivo = null;
 
         public AgregarArticulo()
         {
@@ -26,6 +29,7 @@ namespace presentacion
             this.articulo = articulo;
             InitializeComponent();
             lblCargarInfo.Text = "Modifique la informacion deseada.";
+            btnAgregar.Text = "Guardar";
 
         }
 
@@ -66,32 +70,77 @@ namespace presentacion
             cargar();
         }
 
+        private bool ValidarArticulo()
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control is TextBox && control != txtImagen)
+                {
+                    if (control.Text == "")
+                    {
+                        MessageBox.Show("Asegurese de completar todos los campos requeridos.");
+                        return false;
+                    }
+                }
+            }
+
+            foreach (char caracter in txtPrecio.Text)
+            {
+                if (!(char.IsNumber(caracter) || caracter == '.'))
+                {
+                    MessageBox.Show("Asegurese de ingresar el precio en el formato correcto");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+
             ArticuloNegocio negocio = new ArticuloNegocio();
             Articulo articulo = new Articulo();
 
             try
             {
-                articulo.Codigo = txtCodigo.Text;
-                articulo.Nombre = txtNombre.Text;
-                articulo.Descripcion = txtDescripcion.Text;
-                articulo.Marca = (Marca)cbMarca.SelectedItem;
-                articulo.Categoria = (Categoria)cbCategoria.SelectedItem;
-                articulo.Imagen = txtImagen.Text;
-                articulo.Precio = int.Parse(txtPrecio.Text);
 
-                negocio.AgregarArticulo(articulo);
+                if (ValidarArticulo())
+                {
+                    articulo.Codigo = txtCodigo.Text;
+                    articulo.Nombre = txtNombre.Text;
+                    articulo.Descripcion = txtDescripcion.Text;
+                    articulo.Marca = (Marca)cbMarca.SelectedItem;
+                    articulo.Categoria = (Categoria)cbCategoria.SelectedItem;
+                    articulo.Imagen = txtImagen.Text;
+                    articulo.Precio = decimal.Parse(txtPrecio.Text);
 
-                MessageBox.Show("Articulo agregado exitosamente!", "Agregar articulo");
 
-                Close();
+                    if (archivo != null && !(txtImagen.Text.Contains("http")))
+                        //guardar la imagen!!
+                        File.Copy(archivo.FileName, ConfigurationManager.AppSettings["gdImages"] + archivo.SafeFileName);
+
+                    if (this.articulo == null)
+                    {
+                        negocio.AgregarArticulo(articulo);
+                        MessageBox.Show("Articulo agregado exitosamente!", "Agregar articulo");
+                    }
+                    else
+                    {
+                        articulo.Id = this.articulo.Id;
+                        negocio.EditarArticulo(articulo);
+                        MessageBox.Show("Articulo editado exitosamente!", "Editar articulo");
+                    }
+
+
+                    Close();
+                }
 
             }
             catch (Exception ex)
             {
 
-                throw ex;
+                MessageBox.Show(ex.ToString());
             }
 
         }
@@ -99,6 +148,19 @@ namespace presentacion
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "jpg|*.jpg|png|*.png";
+            if (archivo.ShowDialog() == DialogResult.OK)
+            {
+                txtImagen.Text = archivo.FileName;
+                CargarImagen(archivo.FileName);
+
+
+            }
         }
     }
 }

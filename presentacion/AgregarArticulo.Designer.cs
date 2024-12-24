@@ -46,6 +46,7 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblCargarInfo = new System.Windows.Forms.Label();
+            this.btnAgregarImagen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbAgregar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,7 +138,7 @@
             // 
             this.txtImagen.Location = new System.Drawing.Point(103, 185);
             this.txtImagen.Name = "txtImagen";
-            this.txtImagen.Size = new System.Drawing.Size(193, 20);
+            this.txtImagen.Size = new System.Drawing.Size(159, 20);
             this.txtImagen.TabIndex = 10;
             // 
             // txtPrecio
@@ -204,11 +205,22 @@
             this.lblCargarInfo.TabIndex = 17;
             this.lblCargarInfo.Text = "Ingrese la informacion del articulo";
             // 
+            // btnAgregarImagen
+            // 
+            this.btnAgregarImagen.Location = new System.Drawing.Point(268, 182);
+            this.btnAgregarImagen.Name = "btnAgregarImagen";
+            this.btnAgregarImagen.Size = new System.Drawing.Size(27, 23);
+            this.btnAgregarImagen.TabIndex = 18;
+            this.btnAgregarImagen.Text = "+";
+            this.btnAgregarImagen.UseVisualStyleBackColor = true;
+            this.btnAgregarImagen.Click += new System.EventHandler(this.btnAgregarImagen_Click);
+            // 
             // AgregarArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(540, 303);
+            this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.lblCargarInfo);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAgregar);
@@ -256,5 +268,6 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblCargarInfo;
+        private System.Windows.Forms.Button btnAgregarImagen;
     }
 }

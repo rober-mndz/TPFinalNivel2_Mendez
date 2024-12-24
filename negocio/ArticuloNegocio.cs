@@ -89,8 +89,17 @@ namespace negocio
         {
             try
             {
-                datos.setQuery("");
-                
+                datos.setQuery("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, ImagenUrl = @ImagenUrl, Precio = @Precio WHERE Id = @Id");
+                datos.setParameters("@Codigo", articulo.Codigo);
+                datos.setParameters("@Nombre", articulo.Nombre);
+                datos.setParameters("@Descripcion", articulo.Descripcion);
+                datos.setParameters("@IdMarca", articulo.Marca.Id);
+                datos.setParameters("@IdCategoria", articulo.Categoria.Id);
+                datos.setParameters("@ImagenUrl", articulo.Imagen);
+                datos.setParameters("@Precio", articulo.Precio);
+                datos.setParameters("@Id", articulo.Id);
+
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {

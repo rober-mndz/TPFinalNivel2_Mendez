@@ -22,6 +22,9 @@ namespace presentacion
         private void Form1_Load(object sender, EventArgs e)
         {
             cargar();
+            cbCampo.Items.Add("Marca");
+            cbCampo.Items.Add("Categoria");
+            cbCampo.Items.Add("Codigo");
         }
 
         private void cargar()
@@ -143,6 +146,104 @@ namespace presentacion
                 txtBusqueda.ForeColor = SystemColors.WindowFrame;
                 cargar();
             }
+        }
+
+        private void cbCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cbCampo.SelectedItem != null)
+            {
+                cbCriterio.Items.Clear();
+                cbCriterio.Items.Add("Comienza Con");
+                cbCriterio.Items.Add("Termina Con");
+                cbCriterio.Items.Add("Contiene");
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cbCampo.SelectedItem != null && cbCriterio.SelectedItem != null)
+                {
+
+                    string campo = cbCampo.SelectedItem.ToString();
+                    string criterio = cbCriterio.SelectedItem.ToString();
+                    string query = txtFiltroAvanzado.Text;
+
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    List<Articulo> listaFiltrada = null;
+
+                    if (query.Length >= 3 || query == "" && listaFiltrada != null)
+                    {
+                        if (campo == "Marca")
+                        {
+                            switch (criterio)
+                            {
+                                case "Comienza Con":
+                                    listaFiltrada = negocio.ListarArticulos().FindAll(x => x.Marca.Descripcion.ToUpper().StartsWith(query.ToUpper()));
+                                    break;
+
+                                case "Termina Con":
+                                    listaFiltrada = negocio.ListarArticulos().FindAll(x => x.Marca.Descripcion.ToUpper().EndsWith(query.ToUpper()));
+                                    break;
+
+                                case "Contiene":
+                                    listaFiltrada = negocio.ListarArticulos().FindAll(x => x.Marca.Descripcion.ToUpper().Contains(query.ToUpper()));
+                                    break;
+
+                            }
+                        }
+                        else if (campo == "Categoria")
+                        {
+                            switch (criterio)
+                            {
+                                case "Comienza Con":
+                                    listaFiltrada = negocio.ListarArticulos().FindAll(x => x.Categoria.Descripcion.ToUpper().StartsWith(query.ToUpper()));
+                                    break;
+
+                                case "Termina Con":
+                                    listaFiltrada = negocio.ListarArticulos().FindAll(x => x.Categoria.Descripcion.ToUpper().EndsWith(query.ToUpper()));
+                                    break;
+
+                                case "Contiene":
+                                    listaFiltrada = negocio.ListarArticulos().FindAll(x => x.Categoria.Descripcion.ToUpper().Contains(query.ToUpper()));
+                                    break;
+                            }
+                        }
+                        else if (campo == "Codigo")
+                        {
+                            switch (criterio)
+                            {
+                                case "Comienza Con":
+                                    listaFiltrada = negocio.ListarArticulos().FindAll(x => x.Codigo.ToUpper().StartsWith(query.ToUpper()));
+                                    break;
+
+                                case "Termina Con":
+                                    listaFiltrada = negocio.ListarArticulos().FindAll(x => x.Codigo.ToUpper().EndsWith(query.ToUpper()));
+                                    break;
+
+                                case "Contiene":
+                                    listaFiltrada = negocio.ListarArticulos().FindAll(x => x.Codigo.ToUpper().Contains(query.ToUpper()));
+                                    break;
+                            }
+                        }
+
+                        dgvArticulos.DataSource = listaFiltrada;
+                    }
+                }
+                else MessageBox.Show("Por favor, antes de buscar, asegurese de seleccionar tanto el Campo como el Criterio sobre los cuales quiere realizar la busqueda.", "Busqueda Avanzada");
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void btnLimpiarFiltros_Click(object sender, EventArgs e)
+        {
+            cargar();
         }
     }
 }
